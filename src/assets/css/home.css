@@ -1,0 +1,14 @@
+.home-wrapper{
+    gap: 0rem;
+    height: 91vh;
+}
+
+.side-nav-wrapper{
+    width: 200px;
+    /* border: 1px solid rgba(150, 150, 150, 0.397); */
+}
+
+.module-wrapper{
+    padding: 1;
+    flex: 1;
+}
