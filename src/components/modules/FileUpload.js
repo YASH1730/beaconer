@@ -64,7 +64,7 @@ const FileUpload = () => {
                     sx={{ fontWeight: 600 }}
                     variant="body1"
                   >
-                    Upload Questioner
+                    Upload Questionnaires
                   </Typography>
                   {state.SIGlight && <CheckCircleIcon color={"primary"} />}
                 </Box>
