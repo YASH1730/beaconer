@@ -1,23 +1,25 @@
 .sidenav-wrapper{
     width: 100%;
-    background-color: rgb(0, 0, 0);
+    background:linear-gradient(180deg, #000000 0%,#55E21C 160%);;
     height: 100%;
     overflow: hidden;
     /* overflow-y: scroll; */
 }
 
 .sidenav-container{
+    justify-content: center;
     padding-top: 1rem;
   color: aliceblue;
 }
 
 #side-nav-text{
     padding: 1rem;
+    font-size: 1rem;
     font-weight: 500;
 }
 
 .sidenav-list{
-
+border: 1px solid rgba(212, 205, 205, 0.233);
     padding: 0.5rem;
 
 }

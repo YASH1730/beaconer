@@ -18,6 +18,7 @@
 .file-upload-section{
     padding: 1rem;
     width: 100%;
+    height: 150px;
     justify-content: space-between;
     border: 2px dotted rgb(3, 90, 32);
 }
@@ -44,9 +45,11 @@
     flex-direction: column;
 }
 
-.file-upload-input input{
-    opacity: 0;
-}
+.file-upload-input input::file-selector-button {
+    display: none;
+  }
+
+
 
 .file-upload-input input::placeholder{
     opacity: 100%;
