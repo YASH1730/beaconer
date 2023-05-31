@@ -35,6 +35,9 @@ const FileUpload = () => {
    
   }
 
+  function handleSubmit(){
+    console.log(state)
+  }
   function handleRemove(name){
     document.getElementById(name).value = "";
     setState({
@@ -58,10 +61,10 @@ const FileUpload = () => {
                 <Box className="flex" sx={{ alignItems: "center" }}>
                   <Typography
                     color={"primary"}
-                    sx={{ fontWeight: 500 }}
+                    sx={{ fontWeight: 600 }}
                     variant="body1"
                   >
-                    Upload SIGlight
+                    Upload Questioner
                   </Typography>
                   {state.SIGlight && <CheckCircleIcon color={"primary"} />}
                 </Box>
@@ -81,7 +84,6 @@ const FileUpload = () => {
                     fullWidth
                     type="file"
                     onChange={handleFile}
-                    placeholder="Upload CSV"
                   />
                 </Box>
                   {state.SIGlight && (
@@ -92,7 +94,7 @@ const FileUpload = () => {
                 <Box className="flex" sx={{ alignItems: "center" }}>
                   <Typography
                     color={"primary"}
-                    sx={{ fontWeight: 500 }}
+                    sx={{ fontWeight: 600 }}
                     variant="body1"
                   >
                     Upload SOC-2 (pdf)
@@ -125,7 +127,7 @@ const FileUpload = () => {
             </Box>
           </Box>
           <Box className="file-upload-buttons flex">
-            <Button variant="contained">Report</Button>
+            <Button onClick = {handleSubmit} variant="contained">Report</Button>
             <Button variant="contained">Export</Button>
           </Box>
         </Box>
