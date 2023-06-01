@@ -16,10 +16,12 @@ import DataGrid from "../utils/DataTable";
 //icons
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from '@mui/icons-material/Cancel';
+import { sendFile } from "../service/service";
 const FileUpload = () => {
   const initialState = {
     SIGlight: "",
     SOC2: "",
+    rows: [],
   };
 
   const [state, setState] = useReducer(reducer, initialState);
@@ -35,8 +37,34 @@ const FileUpload = () => {
    
   }
 
-  function handleSubmit(){
-    console.log(state)
+  async function handleSubmit(e){
+    e.preventDefault();
+
+    setState(
+      { 
+        type : "Set_Value",
+        payload : {
+      rows : []}
+  })
+    const FD = new FormData()
+    FD.append("SIGlight" , state.SIGlight )
+    FD.append("SOC2" , state.SOC2 )
+    const res = await sendFile(FD)
+    if(res.status === 200)
+    {
+      setState(
+        { 
+          type : "Set_Value",
+          payload : {
+        rows : [...res.data.Question.map((row,i)=>{
+        return {
+          id : i+1,
+          question : row,
+          answer : res.data.Answer[i]
+        }
+      })]}
+    })
+    }
   }
   function handleRemove(name){
     document.getElementById(name).value = "";
@@ -51,7 +79,7 @@ const FileUpload = () => {
   return (
     <>
       <Box className="file-uploader-wrapper">
-        <Box className="file-upload-container flex-col">
+        <Box className="file-upload-container flex-col" component={'form'} enctype="multipart/form-data" onSubmit={handleSubmit} >
           <Box>
             <Typography variant="h6">File Uploading</Typography>
           </Box>
@@ -123,11 +151,11 @@ const FileUpload = () => {
               </Box>
             </Box>
             <Box className="file-query-result">
-              <DataGrid />
+              <DataGrid state = {state} />
             </Box>
           </Box>
           <Box className="file-upload-buttons flex">
-            <Button onClick = {handleSubmit} variant="contained">Report</Button>
+            <Button type = "submit" variant="contained">Report</Button>
             <Button variant="contained">Export</Button>
           </Box>
         </Box>
@@ -139,6 +167,7 @@ const FileUpload = () => {
 function reducer(state, action) {
   switch (action.type) {
     case "Set_Value":
+      console.log(action)
       return (state = { ...state, ...action.payload });
     default:
       return state;
