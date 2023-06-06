@@ -1,6 +1,7 @@
 .home-wrapper{
     gap: 0rem;
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
 }
 
 .side-nav-wrapper{

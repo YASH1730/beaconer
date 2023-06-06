@@ -17,6 +17,15 @@ code {
   padding: 0%;
   box-sizing: border-box;
   font-family: 'Mona-Sans';
+  font-size: 106%;
+}
+
+@media screen and (width <= 600px) {
+  *{font-size : 95% !important ;}   
+}
+
+@media screen and (width <= 1500px) {
+  *{font-size: 100% !important;}  
 }
 
 /* // utils */

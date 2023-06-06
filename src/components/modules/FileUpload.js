@@ -15,12 +15,13 @@ import FileDrop from "../utils/FileDropZone";
 import DataGrid from "../utils/DataTable";
 //icons
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import CancelIcon from '@mui/icons-material/Cancel';
+import CancelIcon from "@mui/icons-material/Cancel";
 import { sendFile } from "../service/service";
 const FileUpload = () => {
   const initialState = {
     SIGlight: "",
     SOC2: "",
+    loading : false,
     rows: [],
   };
 
@@ -28,45 +29,47 @@ const FileUpload = () => {
 
   function handleFile(e) {
     // console.log(e.target);
+    setState({
+      type: "Set_Value",
+      payload: {
+        [e.target.name]: e.target.files[0],
+      },
+    });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    setState({
+      type: "Set_Value",
+      payload: {
+        loading : true,
+        rows: [],
+      },
+    });
+    const FD = new FormData();
+    FD.append("SIGlight", state.SIGlight);
+    FD.append("SOC2", state.SOC2);
+    const res = await sendFile(FD);
+    if (res.status === 200) {
       setState({
         type: "Set_Value",
         payload: {
-          [e.target.name]: e.target.files[0],
+          loading : false,
+          rows: [
+            ...res.data.Question.map((row, i) => {
+              return {
+                id: i + 1,
+                question: row,
+                answer: res.data.Answer[i],
+              };
+            }),
+          ],
         },
       });
-   
-  }
-
-  async function handleSubmit(e){
-    e.preventDefault();
-
-    setState(
-      { 
-        type : "Set_Value",
-        payload : {
-      rows : []}
-  })
-    const FD = new FormData()
-    FD.append("SIGlight" , state.SIGlight )
-    FD.append("SOC2" , state.SOC2 )
-    const res = await sendFile(FD)
-    if(res.status === 200)
-    {
-      setState(
-        { 
-          type : "Set_Value",
-          payload : {
-        rows : [...res.data.Question.map((row,i)=>{
-        return {
-          id : i+1,
-          question : row,
-          answer : res.data.Answer[i]
-        }
-      })]}
-    })
     }
   }
-  function handleRemove(name){
+  function handleRemove(name) {
     document.getElementById(name).value = "";
     setState({
       type: "Set_Value",
@@ -79,7 +82,12 @@ const FileUpload = () => {
   return (
     <>
       <Box className="file-uploader-wrapper">
-        <Box className="file-upload-container flex-col" component={'form'} enctype="multipart/form-data" onSubmit={handleSubmit} >
+        <Box
+          className="file-upload-container flex-col"
+          component={"form"}
+          enctype="multipart/form-data"
+          onSubmit={handleSubmit}
+        >
           <Box>
             <Typography variant="h6">File Uploading</Typography>
           </Box>
@@ -114,9 +122,15 @@ const FileUpload = () => {
                     onChange={handleFile}
                   />
                 </Box>
-                  {state.SIGlight && (
-                    <Button onClick={()=>handleRemove("SIGlight")} color='primary' size ="small">Remove</Button>
-                  )}
+                {state.SIGlight && (
+                  <Button
+                    onClick={() => handleRemove("SIGlight")}
+                    color="primary"
+                    size="small"
+                  >
+                    Remove
+                  </Button>
+                )}
               </Box>
               <Box className="file-upload-input flex">
                 <Box className="flex" sx={{ alignItems: "center" }}>
@@ -145,18 +159,33 @@ const FileUpload = () => {
                     placeholder="Upload CSV"
                   />
                 </Box>
-                    {state.SOC2 && (
-                    <Button onClick={()=>handleRemove("SOC2")} color='primary' size ="small">Remove</Button>
-                  )}
+                {state.SOC2 && (
+                  <Button
+                    onClick={() => handleRemove("SOC2")}
+                    color="primary"
+                    size="small"
+                  >
+                    Remove
+                  </Button>
+                )}
               </Box>
             </Box>
             <Box className="file-query-result">
-              <DataGrid state = {state} />
+              <DataGrid state={state} />
             </Box>
           </Box>
           <Box className="file-upload-buttons flex">
-            <Button type = "submit" variant="contained">Report</Button>
-            <Button variant="contained">Export</Button>
+            <Button
+              color="secondary"
+              size="small"
+              type="submit"
+              variant="contained"
+            >
+              Start Assessment
+            </Button>
+            <Button color="secondary" size="small" variant="contained">
+              Generate Report
+            </Button>
           </Box>
         </Box>
       </Box>
@@ -167,7 +196,7 @@ const FileUpload = () => {
 function reducer(state, action) {
   switch (action.type) {
     case "Set_Value":
-      console.log(action)
+      console.log(action);
       return (state = { ...state, ...action.payload });
     default:
       return state;

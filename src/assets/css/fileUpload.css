@@ -33,6 +33,7 @@
 
 .file-query-result{
     flex: 1;
+    max-height: 90vh;
 }
 
 .file-upload-buttons{

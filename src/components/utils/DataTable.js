@@ -15,10 +15,11 @@ const rows = [
 export default function DataTable({state}) {
   return (
 
-    <div style={{ height: 400, width: '100%' }}>
+    <div style={{ height: "100%", width: '100%' }}>
       {console.log(state.rows)}
       <DataGrid
         rows={state.rows || rows}
+        loading={state.loading}
         columns={columns}
         initialState={{
           pagination: {
