@@ -10,43 +10,23 @@ const thumbsContainer = {
   marginTop: 2,
 };
 
-const thumb = {
-  display: "inline-flex",
-  borderRadius: 2,
-  border: "1px solid #eaeaea",
-  marginBottom: 8,
-  marginRight: 8,
-  width: "100%",
-  textOverflow: "clip",
-  padding: 4,
-  boxSizing: "border-box",
-};
-
-// const thumbInner = {
-//   display: 'flex',
-//   minWidth: 0,
-//   overflow: 'hidden'
-// };
-
-const img = {
-  display: "block",
-  width: "auto",
-  height: "100%",
-};
-
 function Previews(props) {
-  // const [files, setFiles] = useState([]);
+  const [error, setError] = useState(false);
+
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      "text/*": [".xlsx", ".csv"],
+      "text/*": props.files,
     },
     multiple: false,
     onDrop: (acceptedFiles) => {
-      console.log(acceptedFiles);
-      props.setState({
-        type: "Set_Value",
-        payload: { [props.name]: acceptedFiles[0] },
-      });
+      if (props.files.indexOf("." + acceptedFiles[0].path.split(".")[1]) > -1) {
+        setError(false);
+
+        props.setState({
+          type: "Set_Value",
+          payload: { [props.name]: acceptedFiles[0] },
+        });
+      } else setError(true);
     },
   });
 
@@ -54,15 +34,23 @@ function Previews(props) {
     <Box className={props.cssClass}>
       <div {...getRootProps({ className: "dropzone" })}>
         <img src={Cloud} alt="upload"></img>
-        <Typography variant="body1">Drop & Click to upload the file</Typography>
+        <Typography variant="body1">
+          Drop or Click to upload the file
+        </Typography>
         <input {...getInputProps()} />
         <p>{props.text}</p>
       </div>
       <aside style={thumbsContainer}>
-        {console.log(props.state)}
+
         <Typography variant="caption">
           {props.state[props.name].name}
         </Typography>
+
+        {error && (
+          <Typography variant="caption" sx={{ color: "red" }}>
+            Please upload the appropriate file formate.
+          </Typography>
+        )}
 
         {props.state[props.name] && (
           <Button

@@ -29,7 +29,7 @@ const FileUpload = () => {
   const [state, setState] = useReducer(reducer, initialState);
 
   function handleFile(e) {
-    // console.log(e.target);
+    // //console.log(e.target);
     setState({
       type: "Set_Value",
       payload: {
@@ -90,7 +90,7 @@ const FileUpload = () => {
           onSubmit={handleSubmit}
         >
           <Box>
-            <Typography variant="h6">File Uploading</Typography>
+            <Typography variant="h4" sx = {{ fontSize : "3 rem",fontWeight : 700}}>File Uploading</Typography>
           </Box>
           <Box className="file-upload-main-container flex">
             <Box className="file-upload-section flex">
@@ -107,6 +107,7 @@ const FileUpload = () => {
                 </Box>
 
                 <FileDrop
+                  files = {[".xlsx", ".csv"]}
                   handleRemove={handleRemove}
                   state={state}
                   name={"SIGlight"}
@@ -127,6 +128,7 @@ const FileUpload = () => {
                 </Box>
                 <Box>
                   <FileDrop
+                  files = {[".pdf"]}
                   handleRemove={handleRemove}
                     state={state}
                     name={"SOC2"}
@@ -186,7 +188,7 @@ const FileUpload = () => {
 function reducer(state, action) {
   switch (action.type) {
     case "Set_Value":
-      console.log(action);
+      //console.log(action);
       return (state = { ...state, ...action.payload });
     default:
       return state;
