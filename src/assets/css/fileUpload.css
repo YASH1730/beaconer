@@ -18,9 +18,9 @@
 .file-upload-section{
     padding: 1rem;
     width: 100%;
-    height: 150px;
+    /* height: 150px; */
     justify-content: space-between;
-    border: 2px dotted rgb(3, 90, 32);
+    /* border: 2px dotted rgb(3, 90, 32); */
 }
 
 .file-query-result{
@@ -54,4 +54,24 @@
 
 .file-upload-input input::placeholder{
     opacity: 100%;
+}
+
+.upload-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1%;
+    border: 2px dotted rgb(165, 165, 165);
+}
+
+
+.upload-section img {
+    width: 80px;
+}
+
+.dropzone{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

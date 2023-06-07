@@ -16,12 +16,13 @@ import DataGrid from "../utils/DataTable";
 //icons
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import Cloud from "../../assets/image/cloud.png";
 import { sendFile } from "../service/service";
 const FileUpload = () => {
   const initialState = {
     SIGlight: "",
     SOC2: "",
-    loading : false,
+    loading: false,
     rows: [],
   };
 
@@ -43,7 +44,7 @@ const FileUpload = () => {
     setState({
       type: "Set_Value",
       payload: {
-        loading : true,
+        loading: true,
         rows: [],
       },
     });
@@ -55,13 +56,14 @@ const FileUpload = () => {
       setState({
         type: "Set_Value",
         payload: {
-          loading : false,
+          loading: false,
           rows: [
             ...res.data.Question.map((row, i) => {
               return {
                 id: i + 1,
                 question: row,
                 answer: res.data.Answer[i],
+                risk: res.data.Answer[i],
               };
             }),
           ],
@@ -70,7 +72,6 @@ const FileUpload = () => {
     }
   }
   function handleRemove(name) {
-    document.getElementById(name).value = "";
     setState({
       type: "Set_Value",
       payload: {
@@ -105,32 +106,13 @@ const FileUpload = () => {
                   {state.SIGlight && <CheckCircleIcon color={"primary"} />}
                 </Box>
 
-                <Box>
-                  <TextField
-                    id="SIGlight"
-                    name={"SIGlight"}
-                    inputProps={{
-                      accept: ".csv, .xlsx",
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          SIGlight
-                        </InputAdornment>
-                      ),
-                    }}
-                    fullWidth
-                    type="file"
-                    onChange={handleFile}
-                  />
-                </Box>
-                {state.SIGlight && (
-                  <Button
-                    onClick={() => handleRemove("SIGlight")}
-                    color="primary"
-                    size="small"
-                  >
-                    Remove
-                  </Button>
-                )}
+                <FileDrop
+                  handleRemove={handleRemove}
+                  state={state}
+                  name={"SIGlight"}
+                  setState={setState}
+                  cssClass={"upload-section"}
+                />
               </Box>
               <Box className="file-upload-input flex">
                 <Box className="flex" sx={{ alignItems: "center" }}>
@@ -144,7 +126,15 @@ const FileUpload = () => {
                   {state.SOC2 && <CheckCircleIcon color={"primary"} />}
                 </Box>
                 <Box>
-                  <TextField
+                  <FileDrop
+                  handleRemove={handleRemove}
+                    state={state}
+                    name={"SOC2"}
+                    setState={setState}
+                    cssClass={"upload-section"}
+                  />
+
+                  {/* <TextField
                     name={"SOC2"}
                     id="SOC2"
                     fullWidth
@@ -157,7 +147,7 @@ const FileUpload = () => {
                     }}
                     type="file"
                     placeholder="Upload CSV"
-                  />
+                  /> */}
                 </Box>
                 {state.SOC2 && (
                   <Button
