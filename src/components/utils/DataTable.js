@@ -2,25 +2,6 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 
-const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "question", headerAlign: "center", headerName: "Question", flex: 1 },
-  {
-    field: "answer",
-    headerName: "Answer",
-    headerAlign: "center",
-    width: 150,
-    align: "center",
-  },
-  {
-    field: "risk",
-    headerName: "Risk",
-    align: "center",
-    headerAlign: "center",
-    width: 100,
-    renderCell: riskButton,
-  },
-];
 
 const rows = [
   { id: 1, lastName: "Snow", firstName: "Jon" },
@@ -47,6 +28,28 @@ function riskButton(params) {
 }
 
 export default function DataTable({ state }) {
+
+
+const columns =  [
+  { field: "id", headerName: "ID", width: 70 },
+  { field: "question", headerAlign: "center", headerName: "Question", flex: 1 },
+  {
+    field: "answer",
+    headerName: "Answer",
+    headerAlign: "center",
+    width: 150,
+    align: "center",
+  },
+  {
+    field: "risk",
+    headerName: "Risk",
+    align: "center",
+    headerAlign: "center",
+    width: 100,
+    renderCell: riskButton,
+  },
+];
+
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <DataGrid

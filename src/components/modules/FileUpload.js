@@ -17,7 +17,7 @@ import DataGrid from "../utils/DataTable";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Cloud from "../../assets/image/cloud.png";
-import { sendFile } from "../service/service";
+import { sendFile, sendFile_Questioners, sendFile_SOC2 } from "../service/service";
 const FileUpload = () => {
   const initialState = {
     SIGlight: "",
@@ -51,7 +51,13 @@ const FileUpload = () => {
     const FD = new FormData();
     FD.append("SIGlight", state.SIGlight);
     FD.append("SOC2", state.SOC2);
-    const res = await sendFile(FD);
+    // API Call 
+    let res = "";
+
+    if(state.SIGlight !== "" && state.SIGlight)
+    res =  await sendFile_Questioners(FD);
+    else if(state.SOC2 !== "" && state.SOC2)
+    res =  await sendFile_SOC2(FD);
     if (res.status === 200) {
       setState({
         type: "Set_Value",
@@ -69,6 +75,9 @@ const FileUpload = () => {
           ],
         },
       });
+    }
+    else{
+      window.alert("Error Occurred in APIs !!!")
     }
   }
   function handleRemove(name) {
@@ -151,15 +160,6 @@ const FileUpload = () => {
                     placeholder="Upload CSV"
                   /> */}
                 </Box>
-                {state.SOC2 && (
-                  <Button
-                    onClick={() => handleRemove("SOC2")}
-                    color="primary"
-                    size="small"
-                  >
-                    Remove
-                  </Button>
-                )}
               </Box>
             </Box>
             <Box className="file-query-result">
