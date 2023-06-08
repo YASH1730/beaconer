@@ -90,7 +90,7 @@ const FileUpload = () => {
           onSubmit={handleSubmit}
         >
           <Box>
-            <Typography variant="h4" sx = {{ fontSize : "3 rem",fontWeight : 700}}>File Uploading</Typography>
+            <Typography variant="h6" sx = {{ fontSize : "1 rem",fontWeight : 700}}>File Uploading</Typography>
           </Box>
           <Box className="file-upload-main-container flex">
             <Box className="file-upload-section flex">

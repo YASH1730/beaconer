@@ -5,11 +5,13 @@
 }
 
 .side-nav-wrapper{
-    width: 200px;
+    max-width: 200px;
+    min-width: 200px;
     /* border: 1px solid rgba(150, 150, 150, 0.397); */
 }
 
 .module-wrapper{
-    padding: 1;
-    flex: 1;
+    padding: 1%;
+    width: 90%;
+
 }

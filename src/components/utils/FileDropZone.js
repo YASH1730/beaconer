@@ -15,13 +15,12 @@ function Previews(props) {
 
   const { getRootProps, getInputProps } = useDropzone({
     accept: {
-      "text/*": props.files,
+      "text": props.files,
     },
     multiple: false,
     onDrop: (acceptedFiles) => {
-      if (props.files.indexOf("." + acceptedFiles[0].path.split(".")[1]) > -1) {
+      if (acceptedFiles[0] && props.files.indexOf("." + acceptedFiles[0].path.split(".")[1]) > -1) {
         setError(false);
-
         props.setState({
           type: "Set_Value",
           payload: { [props.name]: acceptedFiles[0] },
