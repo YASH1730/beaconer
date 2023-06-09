@@ -19,8 +19,7 @@
 
 .file-upload-section{
     padding: 1rem;
-    /* max-width: 95%; */
-    /* height: 150px; */
+    height: 220px;
     justify-content: space-between;
     /* border: 2px dotted rgb(3, 90, 32); */
 }
