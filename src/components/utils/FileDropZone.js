@@ -19,9 +19,9 @@ function Previews(props) {
     },
     multiple: false,
     onDrop: (acceptedFiles) => {
-      if (acceptedFiles[0] && props.files.indexOf("." + acceptedFiles[0].path.split(".")[1]) > -1) {
+      console.log(acceptedFiles[0])
+      if (acceptedFiles[0] && props.files.indexOf("." + acceptedFiles[0].type.split("/")[1]) > -1) {
         setError(false);
-
         if(props.name === "SIGlight")
         props.setState({
           type: "Set_Value",
