@@ -12,10 +12,10 @@ function App() {
   const light = createTheme({
     palette: {
       primary: {
-        main: "#628902",
+        main: "#25610C",
       },
       secondary: {
-        main: "#000000",
+        main: "#628902",
       },
     },
     typography: {
