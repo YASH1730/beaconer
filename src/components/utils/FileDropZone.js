@@ -21,10 +21,18 @@ function Previews(props) {
     onDrop: (acceptedFiles) => {
       if (acceptedFiles[0] && props.files.indexOf("." + acceptedFiles[0].path.split(".")[1]) > -1) {
         setError(false);
+
+        if(props.name === "SIGlight")
         props.setState({
           type: "Set_Value",
-          payload: { [props.name]: acceptedFiles[0] },
+          payload: { [props.name]: acceptedFiles[0], SOC2 : "" },
         });
+        else
+        props.setState({
+          type: "Set_Value",
+          payload: { [props.name]: acceptedFiles[0] , SIGlight : ""},
+        });
+
       } else setError(true);
     },
   });
@@ -36,7 +44,7 @@ function Previews(props) {
         <Typography variant="body1">
           Drop or Click to upload the file
         </Typography>
-        <input {...getInputProps()} />
+        <input  {...getInputProps()} />
         <p>{props.text}</p>
       </div>
       <aside style={thumbsContainer}>

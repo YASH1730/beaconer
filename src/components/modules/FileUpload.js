@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import "../../assets/css/fileUpload.css";
 import {
   Box,
@@ -27,16 +27,6 @@ const FileUpload = () => {
   };
 
   const [state, setState] = useReducer(reducer, initialState);
-
-  function handleFile(e) {
-    // //console.log(e.target);
-    setState({
-      type: "Set_Value",
-      payload: {
-        [e.target.name]: e.target.files[0],
-      },
-    });
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -101,7 +91,6 @@ const FileUpload = () => {
           <Box>
             <Typography variant="h6" sx = {{ fontSize : "1 rem",fontWeight : 700}}>File Uploading</Typography>
           </Box>
-          <Box className="file-upload-main-container flex">
             <Box className="file-upload-section flex">
               <Box className="file-upload-input flex">
                 <Box className="flex" sx={{ alignItems: "center" }}>
@@ -165,7 +154,6 @@ const FileUpload = () => {
             <Box className="file-query-result">
               <DataGrid state={state} />
             </Box>
-          </Box>
           <Box className="file-upload-buttons flex">
             <Button
               color="secondary"
