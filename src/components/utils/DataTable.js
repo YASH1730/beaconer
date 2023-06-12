@@ -10,10 +10,10 @@ const rows = [
 
 function riskButton(params) {
   const colorCode = {
-    Yes: "#228B22",
-    "Not Answered": "#FFA500",
-    No: "#B22222",
-    "Not Applicable": "#A9A9A9",
+    yes: "#228B22",
+    "not answered": "#FFA500",
+    no: "#B22222",
+    "not applicable": "#A9A9A9",
   };
   return (
     <Box
@@ -21,7 +21,7 @@ function riskButton(params) {
         minWidth: "25px",
         minHeight: "25px",
         borderRadius: "50px",
-        backgroundColor: `${colorCode[params.formattedValue]}`,
+        backgroundColor: `${colorCode[params.formattedValue.trim().toLowerCase().replace(".","")]}`,
       }}
     ></Box>
   );
