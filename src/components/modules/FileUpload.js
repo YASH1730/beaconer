@@ -18,6 +18,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Cloud from "../../assets/image/cloud.png";
 import {
+  process_files,
   sendFile,
   sendFile_Questioners,
   sendFile_SOC2,
@@ -47,11 +48,7 @@ const FileUpload = () => {
       FD.append("SIGlight", state.SIGlight);
       FD.append("SOC2", state.SOC2);
       // API Call
-      let res = "";
-
-      if (state.SIGlight !== "" && state.SIGlight)
-        res = await sendFile_Questioners(FD);
-      else if (state.SOC2 !== "" && state.SOC2) res = await sendFile_SOC2(FD);
+      let res = await process_files(FD);
       if (res.status === 200) {
         setState({
           type: "Set_Value",
