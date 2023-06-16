@@ -20,3 +20,12 @@ export function sendFile_SOC2(data){
         }
         )
 }
+export function process_files(data){
+    return axios.post(`${API}/process_files`,data,
+        {
+            headers : {
+                "Content-Type" : "multipart/form-data"
+            } 
+        }
+        )
+}

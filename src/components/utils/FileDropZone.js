@@ -22,15 +22,9 @@ function Previews(props) {
       // console.log(acceptedFiles[0])
       if (acceptedFiles[0] && props.files.indexOf("." + acceptedFiles[0].name.split(".").pop()) > -1) {
         setError(false);
-        if(props.name === "SIGlight")
         props.setState({
           type: "Set_Value",
-          payload: { [props.name]: acceptedFiles[0], SOC2 : "" },
-        });
-        else
-        props.setState({
-          type: "Set_Value",
-          payload: { [props.name]: acceptedFiles[0] , SIGlight : ""},
+          payload: { [props.name]: acceptedFiles[0]},
         });
 
       } else setError(true);
