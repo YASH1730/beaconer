@@ -29,3 +29,12 @@ export function process_files(data){
         }
         )
 }
+export function generate_report(){
+    return axios.get(`${API}/download_report`,
+        {
+            headers : {
+                "Content-Type" : "multipart/form-data"
+            } 
+        }
+        )
+}

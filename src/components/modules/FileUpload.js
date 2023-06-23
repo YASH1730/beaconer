@@ -5,6 +5,7 @@ import {
   Button,
   IconButton,
   InputAdornment,
+  Link,
   TextField,
   Tooltip,
   Typography,
@@ -18,12 +19,17 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Cloud from "../../assets/image/cloud.png";
 import {
+  generate_report,
   process_files,
   sendFile,
   sendFile_Questioners,
   sendFile_SOC2,
 } from "../service/service";
 const FileUpload = () => {
+
+const API = "http://54.193.24.238:5000"
+
+
   const initialState = {
     SIGlight: "",
     SOC2: "",
@@ -179,7 +185,11 @@ const FileUpload = () => {
             >
               Start Assessment
             </Button>
-            <Button color="secondary" size="small" variant="contained">
+            <Button color="secondary" 
+             component={Link}
+             href={`${API}/download_report`}
+            // onClick={()=>generate_report()} 
+            size="small" variant="contained">
               Generate Report
             </Button>
           </Box>
